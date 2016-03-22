@@ -10,7 +10,7 @@ Change log:
 	* fix read error when available_bytes < count in uint8_t SHA204I2C::receive_bytes(uint8_t count, uint8_t *data);
 	* add struct to store serial number (not used)
 	* add selectable I2C address on init()
-	* add cumston debug levels
+	* add custom debug levels
 	* add Progmen F() macro to debug strings
   	* tune CPU_CLOCK_DEVIATION
 
