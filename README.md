@@ -45,7 +45,7 @@ response like this:
             "hmac-256": "E2A9CE6B964679C7730BE0EC70E4AE3A127AE0B781D634E27890135163E82191",
             "authenticated": true
         },
-        "result": "(This will be a surprise)"
+        "result": "(It will be a surprise)"
     }
 }
  ```
