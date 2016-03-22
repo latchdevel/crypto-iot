@@ -3,7 +3,7 @@ Crypto Authentication for IoT
 
 You can test at http://sha204a.cf
 
-http request = *"GET /?timestamp=1458647701 HTTP/1.1\r\n"*
+http request = `"GET /?timestamp=1458647701 HTTP/1.1\r\n"`
 
 add header:
  ```
