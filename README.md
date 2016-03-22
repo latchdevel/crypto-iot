@@ -1,7 +1,9 @@
 # crypto-iot
 Crypto Authentication for IoT
 
-You can test at http://sha204a.cf
+You can test it at http://sha204a.cf
+
+key = **"EB0C68BF96E8C26635D3450293D2FC501A63A09924FE90A7BD916AC521FDE0AA"**
 
 http request = `"GET /?timestamp=1458647701 HTTP/1.1\r\n"`
 
@@ -12,7 +14,7 @@ Authorization: 11PATHS-HMAC-256 id="EjEjEg==",
                                 base="EQACAAAAAAAAAAAAAAAA7gAAAAABIwAA",
                                 signature="4qnOa5ZGecdzC+DscOSuOhJ64LeB1jTieJATUWPoIZE="
  ```
-response like this:
+response will be like this:
 
  ```
  {
