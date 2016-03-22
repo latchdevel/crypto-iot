@@ -8,31 +8,31 @@ https://github.com/nuskunetworks/arduino_sha204 Copyright 2013 Nusku Networks
 Change log:
 	* limited to I2C protocol, SWI deleted
 	* fix read error when available_bytes < count in uint8_t SHA204I2C::receive_bytes(uint8_t count, uint8_t *data);
-	* add struct to store serial number
+	* add struct to store serial number (not used)
 	* add selectable I2C address on init()
 	* add cumston debug levels
 	* add Progmen F() macro to debug strings
-  * tune CPU_CLOCK_DEVIATION
+  	* tune CPU_CLOCK_DEVIATION
 
 To do:
 	* fix unexpected alive response 
 
-	Licensed to the Apache Software Foundation (ASF) under one
-	or more contributor license agreements. See the NOTICE file
-	istributed with this work for additional information
-	regarding copyright ownership. The ASF licenses this file
-	to you under the Apache License, Version 2.0 (the
-	"License"); you may not use this file except in compliance
-	with the License. You may obtain a copy of the License at
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements. See the NOTICE file
+istributed with this work for additional information
+regarding copyright ownership. The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
 
-		http://www.apache.org/licenses/LICENSE-2.0
+	http://www.apache.org/licenses/LICENSE-2.0
 
-	Unless required by applicable law or agreed to in writing,
-	software distributed under the License is distributed on an
-	"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-	KIND, either express or implied. See the License for the
-	specific language governing permissions and limitations
-	under the License.
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied. See the License for the
+specific language governing permissions and limitations
+under the License.
 
 */
 
@@ -59,8 +59,8 @@ private:
 
 public:
 
-  // ******** REVISAR ESTO QUE PARECE QUE NO SE USA
-	uint8_t SHA204serialNumber[SHA204_SERIAL_SIZE] = { 0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,};
+  
+	uint8_t SHA204serialNumber[SHA204_SERIAL_SIZE] = { 0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,}; // Not used
 
 	virtual uint8_t sleep() = 0;
 	uint8_t wakeup(uint8_t *response);
@@ -91,7 +91,6 @@ public:
 	uint8_t update_extra(uint8_t *tx_buffer, uint8_t *rx_buffer, uint8_t mode, uint8_t new_value);
 	uint8_t write(uint8_t *tx_buffer, uint8_t *rx_buffer, uint8_t zone, uint16_t address, uint8_t *value, uint8_t *mac);
 
-  // ******** REVISAR ESTO
 	virtual uint8_t reset_io() = 0;
 	virtual uint8_t receive_byte(uint8_t *data) = 0;
 };
