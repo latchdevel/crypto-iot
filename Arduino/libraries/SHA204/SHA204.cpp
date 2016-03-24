@@ -115,7 +115,7 @@ uint8_t SHA204::send_and_receive(uint8_t *tx_buffer, uint8_t rx_size, uint8_t *r
     ret_code = send_command(count, tx_buffer);
     if (ret_code != SHA204_SUCCESS)
     {
-			if (DEBUG()>=DEBUG_WARN)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() send_command() FAIL ret_code = "));Serial.println(ret_code,HEX); Serial.flush();}
+      if (DEBUG()>=DEBUG_WARN)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() send_command() FAIL ret_code = "));Serial.println(ret_code,HEX); Serial.flush();}
       if (resync(rx_size, rx_buffer) == SHA204_RX_NO_RESPONSE)
         return ret_code; // The device seems to be dead in the water.
       else
@@ -124,7 +124,7 @@ uint8_t SHA204::send_and_receive(uint8_t *tx_buffer, uint8_t rx_size, uint8_t *r
     if (DEBUG()>=DEBUG_INFO)  {Serial.println(F("* DEBUG * SHA204::send_and_receive() send_command() OK")); Serial.flush();}
 
     // Wait minimum command execution time and then start polling for a response.
-		if (DEBUG()>=DEBUG_TRACE) {Serial.print(F("* DEBUG * SHA204::send_and_receive() execution_delay = "));Serial.println(execution_delay);Serial.flush();}
+    if (DEBUG()>=DEBUG_TRACE) {Serial.print(F("* DEBUG * SHA204::send_and_receive() execution_delay = "));Serial.println(execution_delay);Serial.flush();}
     delay(execution_delay);
 
     // Retry loop for receiving a response.
@@ -137,32 +137,29 @@ uint8_t SHA204::send_and_receive(uint8_t *tx_buffer, uint8_t rx_size, uint8_t *r
 
       // Poll for response.
       timeout_countdown = execution_timeout_us;
-		  if (DEBUG()>=DEBUG_TRACE) {Serial.print(F("* DEBUG * SHA204::send_and_receive() timeout_countdown = "));Serial.println(timeout_countdown);Serial.flush();}
+       if (DEBUG()>=DEBUG_TRACE) {Serial.print(F("* DEBUG * SHA204::send_and_receive() timeout_countdown = "));Serial.println(timeout_countdown);Serial.flush();}
       do
       {
         ret_code = receive_response(rx_size, rx_buffer);
 
-				if (DEBUG()>=DEBUG_INFO)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() receive_response() ret_code = "));Serial.println(ret_code,HEX); Serial.flush();}
+	if (DEBUG()>=DEBUG_INFO)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() receive_response() ret_code = "));Serial.println(ret_code,HEX); Serial.flush();}
 
-				if (DEBUG()>=DEBUG_TRACE) {
-					Serial.print(F("* DEBUG * SHA204::send_and_receive() receive_response() "));Serial.print(rx_size);Serial.print(F(" bytes:"));
-					for (int i=0; i<rx_size; i++) {
-			    	Serial.print(" 0x");
-			    	if (rx_buffer[i]<0x10) {Serial.print("0");}
-			    	Serial.print(rx_buffer[i], HEX);
-			  	}
-			  	Serial.println();
-				}
-
-
-				timeout_countdown -= SHA204_RESPONSE_TIMEOUT();
-
+	if (DEBUG()>=DEBUG_TRACE) {
+		Serial.print(F("* DEBUG * SHA204::send_and_receive() receive_response() "));Serial.print(rx_size);Serial.print(F(" bytes:"));
+		for (int i=0; i<rx_size; i++) {
+			Serial.print(" 0x");
+			if (rx_buffer[i]<0x10) {Serial.print("0");}
+			Serial.print(rx_buffer[i], HEX);
+		}
+		Serial.println();
+	}
+	timeout_countdown -= SHA204_RESPONSE_TIMEOUT();
       }
       while ((timeout_countdown > SHA204_RESPONSE_TIMEOUT()) && (ret_code == SHA204_RX_NO_RESPONSE));
 
       if (ret_code == SHA204_RX_NO_RESPONSE)
       {
-				if (DEBUG()>=DEBUG_WARN)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() receive_response() FAIL ret_code = "));Serial.println(ret_code,HEX); Serial.flush();}
+	if (DEBUG()>=DEBUG_WARN)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() receive_response() FAIL ret_code = "));Serial.println(ret_code,HEX); Serial.flush();}
         // We did not receive a response. Re-synchronize and send command again.
         if (resync(rx_size, rx_buffer) == SHA204_RX_NO_RESPONSE)
           // The device seems to be dead in the water.
@@ -174,10 +171,10 @@ uint8_t SHA204::send_and_receive(uint8_t *tx_buffer, uint8_t rx_size, uint8_t *r
       // Check whether we received a valid response.
       if (ret_code == SHA204_INVALID_SIZE)
       {
-				if (DEBUG()>=DEBUG_WARN)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() receive_response() FAIL INVALID_SIZE ret_code = "));Serial.println(ret_code,HEX); Serial.flush();}
+	if (DEBUG()>=DEBUG_WARN)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() receive_response() FAIL INVALID_SIZE ret_code = "));Serial.println(ret_code,HEX); Serial.flush();}
         // We see 0xFF for the count when communication got out of sync.
         ret_code_resync = resync(rx_size, rx_buffer);
-				if (DEBUG()>=DEBUG_INFO)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() resync() ret_code_resync = "));Serial.println(ret_code_resync,HEX); Serial.flush();}
+	if (DEBUG()>=DEBUG_INFO)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() resync() ret_code_resync = "));Serial.println(ret_code_resync,HEX); Serial.flush();}
         if (ret_code_resync == SHA204_SUCCESS)
           // We did not have to wake up the device. Try receiving response again.
           continue;
@@ -190,16 +187,16 @@ uint8_t SHA204::send_and_receive(uint8_t *tx_buffer, uint8_t rx_size, uint8_t *r
           return ret_code;
       }
 
-			if (ret_code == SHA204_COMM_FAIL)
+	if (ret_code == SHA204_COMM_FAIL)
       {
-				 if (DEBUG()>=DEBUG_WARN)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() receive_response() FAIL COMM_FAIL ret_code = "));Serial.println(ret_code,HEX); Serial.flush();}
-				 return ret_code;
+	if (DEBUG()>=DEBUG_WARN)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() receive_response() FAIL COMM_FAIL ret_code = "));Serial.println(ret_code,HEX); Serial.flush();}
+	return ret_code;
       }
 
       // We received a response of valid size.
       // Check the consistency of the response.
       ret_code = check_crc(rx_buffer);
-			if (DEBUG()>=DEBUG_TRACE)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() check_crc() ret_code = "));Serial.println(ret_code,HEX); Serial.flush();}
+      if (DEBUG()>=DEBUG_TRACE)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() check_crc() ret_code = "));Serial.println(ret_code,HEX); Serial.flush();}
       if (ret_code == SHA204_SUCCESS)
       {
 
@@ -234,10 +231,10 @@ uint8_t SHA204::send_and_receive(uint8_t *tx_buffer, uint8_t rx_size, uint8_t *r
 
       else
       {
-				if (DEBUG()>=DEBUG_WARN)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() check_crc() FAIL ret_code = "));Serial.println(ret_code,HEX); Serial.flush();}
+	if (DEBUG()>=DEBUG_WARN)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() check_crc() FAIL ret_code = "));Serial.println(ret_code,HEX); Serial.flush();}
         // Received response with incorrect CRC.
         ret_code_resync = resync(rx_size, rx_buffer);
-				if (DEBUG()>=DEBUG_INFO)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() resync() ret_code_resync = "));Serial.println(ret_code_resync,HEX); Serial.flush();}
+	if (DEBUG()>=DEBUG_INFO)  {Serial.print(F("* DEBUG * SHA204::send_and_receive() resync() ret_code_resync = "));Serial.println(ret_code_resync,HEX); Serial.flush();}
         if (ret_code_resync == SHA204_SUCCESS)
           // We did not have to wake up the device. Try receiving response again.
           continue;
