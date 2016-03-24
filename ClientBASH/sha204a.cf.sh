@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KEY="EB0C68BF96E8C26635D3450293D2FC501A63A09924FE90A7BD916AC521FDE0AA"
+KEY="EB0----------------------------------------------------------0AA"
 
 KEY_BIN="`echo -en "$KEY"|xxd -r -p`"
 
