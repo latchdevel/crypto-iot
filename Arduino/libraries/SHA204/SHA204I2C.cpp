@@ -80,7 +80,6 @@ uint8_t SHA204I2C::receive_bytes(uint8_t count, uint8_t *data) {
 	}
 
   for (i = 0; i < available_bytes; i++) {
-	//for (i = 0; i < count; i++) {
 		while (!Wire.available()); // Wait for byte that is going to be read next
 		*data++ = Wire.read(); // Store read value
 	}
@@ -171,7 +170,7 @@ uint8_t SHA204I2C::receive_response(uint8_t size, uint8_t *response) {
 		return SHA204_COMM_FAIL;
 	}
 
-  //#define SHA204_BUFFER_POS_COUNT      (0)  //!< buffer index of count byte in command or response
+  	//#define SHA204_BUFFER_POS_COUNT      (0)  //!< buffer index of count byte in command or response
 	//#define SHA204_BUFFER_POS_STATUS     (1)  //! buffer index of status byte in status response
 	//#define SHA204_BUFFER_POS_DATA       (1)  //! buffer index of first data byte in data response
 
@@ -181,10 +180,6 @@ uint8_t SHA204I2C::receive_response(uint8_t size, uint8_t *response) {
 		if (DEBUG()>=DEBUG_WARN)  {Serial.print(F("* DEBUG * size = "));Serial.println(size);Serial.flush();}
 		return SHA204_INVALID_SIZE;
 	}
-
-	// ESTO ES LO QUE FALLA. SE ESPERA LLER 35-1 = 34 bites, pero solo hay 32 disponibles.
-	// 0x23 0x04 0x97 0x94 0xAF 0x4E 0x4F 0xB5 0xFF 0x93 0xDA 0x08 0xE2 0x82 0x33 0xBF 0xE7 0x0B 0xA5 0x3D 0x2E 0xC4 0xBC 0x03 0x93 0xC8 0xD7 0x13 0xD6 0x57 0x5A 0x3B 0x51 0x00 0x00
-  //    0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19   20   21   22   23   24   25   26   27   28   29   30   31   32   NL   NL
 
 	i2c_status = receive_bytes(count - 1, &response[SHA204_BUFFER_POS_DATA]);
 
@@ -269,7 +264,6 @@ uint8_t SHA204I2C::resync(uint8_t size, uint8_t *response) {
 	sleep();
 	ret_code = wakeup(response);
 
-//  if (DEBUG) {Serial.print("resync wakeup ret_code="); Serial.println(ret_code); Serial.flush();}
 	// Translate a return value of success into one
 	// that indicates that the device had to be woken up
 	// and might have lost its TempKey.
